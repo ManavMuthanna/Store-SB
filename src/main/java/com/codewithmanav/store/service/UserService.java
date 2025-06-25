@@ -1,5 +1,6 @@
 package com.codewithmanav.store.service;
 
+import com.codewithmanav.store.kafka.UserEventProducer;
 import com.codewithmanav.store.model.User;
 import com.codewithmanav.store.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -9,9 +10,11 @@ import java.util.List;
 @Service
 public class UserService {
     private final UserRepository repo;
+    private final UserEventProducer producer;
 
-    public UserService(UserRepository repo) {
+    public UserService(UserRepository repo, UserEventProducer producer) {
         this.repo = repo;
+        this.producer = producer;
     }
 
     public List<User> getAllUsers() {
@@ -23,6 +26,8 @@ public class UserService {
     }
 
     public User createUser(User user) {
+        User saved = repo.save(user);
+        producer.sendUserCreatedEvent(saved); // 🚀 Send Kafka event
         return repo.save(user);
     }
 

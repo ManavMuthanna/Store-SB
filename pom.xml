@@ -60,6 +60,12 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- Kafka -->
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+		</dependency>
+		
 		<!-- Optional: Spring Boot DevTools for auto-restart -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
