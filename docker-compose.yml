@@ -1,0 +1,22 @@
+services:
+  mysql:
+    image: mysql:8
+    container_name: springboot-mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: storedb
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    container_name: mysql-adminer
+    restart: always
+    ports:
+      - "8081:8080"
+
+volumes:
+  mysql-data:
